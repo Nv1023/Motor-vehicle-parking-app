@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Welcome, {{ user.full_name }}</h2>
+  <!-- <p><a class="btn btn-outline-primary mb-3" href="{{ url_for('user.my_reservation') }}">My Reservations</a></p> -->
+  
+  <div class="mb-3">
+
+    <a href="{{ url_for('user.my_reservation') }}" class="btn btn-outline-primary">My Reservation</a>
+  </div>
+
+  <h4>Available Parking Lots</h4>
+  {% if lots %}
+    {% for lot in lots %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ lot.prime_location_name }}</h5>
+          <p class="card-text">Location: {{ lot.address }} ({{ lot.pin_code }})<br>
+             Price per hour: ₹{{ lot.price }}</p>
+          <a href="{{ url_for('user.view_lot', lot_id=lot.id) }}" class="btn btn-sm btn-success">View Spots</a>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No lots available yet.</p>
+  {% endif %}
+{% endblock %}
